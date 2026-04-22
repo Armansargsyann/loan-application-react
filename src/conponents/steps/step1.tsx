@@ -99,7 +99,7 @@ const Step1 = () => {
         </div>
         <div>
           <label className="block text-sm font-semibold text-gray-600 mb-1">
-            Секс
+            Пол
           </label>
           <select
             {...register("gender", {
