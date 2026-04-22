@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import type { Step1Inputs } from "./types/step1";
+import type { Step1Inputs } from "../../types/step1";
 import { useFormStore } from "../../store/useFormStore";
 const Step1 = () => {
   const navigate = useNavigate();

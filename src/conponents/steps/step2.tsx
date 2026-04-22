@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useFormStore } from "../../store/useFormStore";
-import type { Step2Inputs } from "./types/step2";
+import type { Step2Inputs } from "../../types/step2";
 
 const Step2 = () => {
   const navigate = useNavigate();
@@ -14,6 +14,7 @@ const Step2 = () => {
     register,
     handleSubmit,
     formState: { errors },
+    getValues,
   } = useForm<Step2Inputs>({
     defaultValues: {
       workplace: formData.workplace,
@@ -29,6 +30,13 @@ const Step2 = () => {
     setField("workplace", data.workplace);
     setField("address", data.address);
     navigate("/step3");
+  };
+
+  const handleBack = () => {
+    const currentValues = getValues();
+    setField("workplace", currentValues.workplace);
+    setField("address", currentValues.address);
+    navigate(-1);
   };
 
   return (
@@ -95,7 +103,7 @@ const Step2 = () => {
         <div className="flex gap-4 pt-4">
           <button
             type="button"
-            onClick={() => navigate(-1)}
+            onClick={handleBack}
             className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition"
           >
             Назад

@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import axios from "axios"; // Обоснование: Используем axios для выполнения HTTP-запросов к API
-import type { ICategory } from "../conponents/steps/types/step2";
+import axios from "axios"; 
+import type { ICategory } from "../types/step2";
 
 interface FormData {
   firstName: string;
@@ -17,7 +17,7 @@ interface FormData {
 interface FormState {
   formData: FormData;
   categories: ICategory[];
-  isLoading: boolean; // Обоснование: Состояние загрузки для улучшения UX
+  isLoading: boolean; 
   setField: (field: keyof FormData, value: string | number) => void;
   fetchCategories: () => Promise<void>;
   resetForm: () => void;
@@ -33,19 +33,19 @@ export const useFormStore = create<FormState>()(
         gender: "",
         workplace: "",
         address: "",
-        loanAmount: 200000,
+        loanAmount: 200,
         loanTerm: 10,
       },
       categories: [],
       isLoading: false,
 
-      /**
-       * Обоснование использования асинхронного экшена в Zustand:
-       * Мы выносим логику запроса в store для обеспечения "переиспользования результата" (кэширования).
-       * Если категории уже загружены, запрос не выполняется повторно.
-       */
+    /**
+ * Rationale for using an async action in Zustand:
+ * We move the request logic into the store to ensure "result reuse" (caching).
+ * If categories are already loaded, the request will not be executed again.
+ */
       fetchCategories: async () => {
-        // Переиспользование данных: если категории уже есть, выходим
+
         if (get().categories.length > 0) return;
 
         set({ isLoading: true });
@@ -74,10 +74,10 @@ export const useFormStore = create<FormState>()(
             gender: "",
             workplace: "",
             address: "",
-            loanAmount: 200000,
+            loanAmount: 200,
             loanTerm: 10,
           },
-          categories: [], // Опционально: очищать ли категории при сбросе
+          categories: [],
         }),
     }),
     {
