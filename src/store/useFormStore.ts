@@ -1,5 +1,7 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware"; // Обоснование: Используем persist для сохранения данных в localStorage
+import { persist } from "zustand/middleware";
+import axios from "axios"; // Обоснование: Используем axios для выполнения HTTP-запросов к API
+import type { ICategory } from "../conponents/steps/types/step2";
 
 interface FormData {
   firstName: string;
@@ -14,13 +16,16 @@ interface FormData {
 
 interface FormState {
   formData: FormData;
+  categories: ICategory[];
+  isLoading: boolean; // Обоснование: Состояние загрузки для улучшения UX
   setField: (field: keyof FormData, value: string | number) => void;
+  fetchCategories: () => Promise<void>;
   resetForm: () => void;
 }
 
 export const useFormStore = create<FormState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       formData: {
         firstName: "",
         lastName: "",
@@ -31,13 +36,30 @@ export const useFormStore = create<FormState>()(
         loanAmount: 200000,
         loanTerm: 10,
       },
+      categories: [],
+      isLoading: false,
 
       /**
-       * Обоснование выбора Zustand:
-       * Мы используем Zustand, так как это легковесное и производительное решение для управления состоянием
-       * в многошаговых формах. В отличие от Context API, Zustand предотвращает лишние ререндеры,
-       * а использование middleware 'persist' позволяет сохранять прогресс пользователя даже при перезагрузке страницы.
+       * Обоснование использования асинхронного экшена в Zustand:
+       * Мы выносим логику запроса в store для обеспечения "переиспользования результата" (кэширования).
+       * Если категории уже загружены, запрос не выполняется повторно.
        */
+      fetchCategories: async () => {
+        // Переиспользование данных: если категории уже есть, выходим
+        if (get().categories.length > 0) return;
+
+        set({ isLoading: true });
+        try {
+          const response = await axios.get(
+            "https://dummyjson.com/products/categories",
+          );
+          set({ categories: response.data, isLoading: false });
+        } catch (error) {
+          console.error("Ошибка при загрузке категорий:", error);
+          set({ isLoading: false });
+        }
+      },
+
       setField: (field, value) =>
         set((state) => ({
           formData: { ...state.formData, [field]: value },
@@ -55,10 +77,11 @@ export const useFormStore = create<FormState>()(
             loanAmount: 200000,
             loanTerm: 10,
           },
+          categories: [], // Опционально: очищать ли категории при сбросе
         }),
     }),
     {
-      name: "loan-app-storage", // Ключ в localStorage
+      name: "loan-app-storage",
     },
   ),
 );
