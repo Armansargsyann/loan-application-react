@@ -24,6 +24,7 @@ A modern, robust, and highly performant multi-step loan application form built w
 
 ##  Getting Started
 
+
 Follow these steps to set up and run the project locally.
 
 ### Prerequisites
@@ -51,6 +52,11 @@ Follow these steps to set up and run the project locally.
 
 4. **Open the app**
    Navigate to `http://localhost:5173` in your browser.
+
+## 🚀 Live Demo
+
+You can check out the live version of the project here: 
+[Loan Application React](https://loan-application-react-snowy.vercel.app)
 
 ##  Architectural Decisions
 
