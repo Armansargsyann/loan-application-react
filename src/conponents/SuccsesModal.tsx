@@ -15,7 +15,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   firstName,
   amount,
   term,
-  lastName
+  lastName,
 }) => {
   if (!isOpen) return null;
 
@@ -43,8 +43,12 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
         </h3>
 
         <p className="text-gray-500 mb-6">
-          Поздравляем, <b>{firstName} {lastName}</b>! Ваша заявка на сумму <b>${amount}</b>{" "}
-          сроком на <b>{term} дней</b> успешно принята.
+          Поздравляем,{" "}
+          <b>
+            {firstName} {lastName}
+          </b>
+          ! Ваша заявка на сумму <b>${amount}</b> сроком на <b>{term} дней</b>{" "}
+          успешно принята.
         </p>
 
         <button
