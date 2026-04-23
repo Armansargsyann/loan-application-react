@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useFormStore } from "@/store/useFormStore";
 import SuccessModal from "@/conponents/SuccsesModal";
-import { Button } from "@/conponents/ui/button/button";
+import { Button } from "@/ui/button/button";
 import type { ILoanDetails } from "@/types/steps/LoanDetails";
 
 const LoanDetailsForm = () => {

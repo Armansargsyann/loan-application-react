@@ -1,13 +1,19 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useFormStore } from "@/store/useFormStore";
-import { Input } from "@/conponents/ui/input/input";
-import { Button } from "@/conponents/ui/button/button";
+import { Input } from "@/ui/input/input";
+import { Button } from "@/ui/button/button";
 import type { IPersonalDetails } from "@/types/steps/personalDetals";
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
   const { formData, setField } = useFormStore();
-
+  /**
+   * Rationale for using React Hook Form:
+   * Chosen for its performance-first approach, minimizing unnecessary re-renders
+   * compared to controlled components. It simplifies form state management,
+   * provides easy integration with custom UI components, and handles
+   * validation efficiently with a minimal code footprint.
+   */
   const {
     register,
     handleSubmit,
@@ -81,7 +87,10 @@ const PersonalInfoForm = () => {
           )}
         </div>
 
-        <Button type="submit" className="w-full py-3 shadow-lg hover:shadow-blue-200 transform active:scale-95">
+        <Button
+          type="submit"
+          className="w-full py-3 shadow-lg hover:shadow-blue-200 transform active:scale-95"
+        >
           Далее
         </Button>
       </form>

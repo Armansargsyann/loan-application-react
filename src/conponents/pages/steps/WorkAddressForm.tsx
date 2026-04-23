@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useFormStore } from "@/store/useFormStore";
-import { Input } from "@/conponents/ui/input/input";
-import { Button } from "@/conponents/ui/button/button";
+import { Input } from "@/ui/input/input";
+import { Button } from "@/ui/button/button";
 import type { IWorkAddressDetails } from "@/types/steps/workDetails";
 
 const WorkAddressForm = () => {

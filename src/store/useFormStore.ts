@@ -25,6 +25,21 @@ export const useFormStore = create<FormState>()(
        * We move the request logic into the store to ensure "result reuse" (caching).
        * If categories are already loaded, the request will not be executed again.
        */
+      canAccessStep: (step: number) => {
+        const { formData } = get();
+        if (step === 2) {
+          return !!(
+            formData.firstName &&
+            formData.lastName &&
+            formData.phone &&
+            formData.gender
+          );
+        }
+        if (step === 3) {
+          return !!(formData.workplace && formData.address);
+        }
+        return true;
+      },
       fetchCategories: async () => {
         if (get().categories.length > 0) return;
 
@@ -71,7 +86,7 @@ export const useFormStore = create<FormState>()(
             loanAmount: 200,
             loanTerm: 10,
           },
-          categories: [],
+         // categories: [],
         }),
     }),
     {
