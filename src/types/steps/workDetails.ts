@@ -1,4 +1,4 @@
-export interface Step2Inputs {
+export interface IWorkAddressDetails {
   workplace: string;
   address: string;
 }

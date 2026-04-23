@@ -3,9 +3,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useFormStore } from "@/store/useFormStore";
-import type { Step3Inputs } from "@/types/step3";
 import SuccessModal from "@/conponents/SuccsesModal";
 import { Button } from "@/conponents/ui/button/button";
+import type { ILoanDetails } from "@/types/steps/LoanDetails";
 
 const LoanDetailsForm = () => {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ const LoanDetailsForm = () => {
     watch,
     formState: { errors },
     getValues,
-  } = useForm<Step3Inputs>({
+  } = useForm<ILoanDetails>({
     values: {
       loanAmount: formData.loanAmount,
       loanTerm: formData.loanTerm,
@@ -29,7 +29,7 @@ const LoanDetailsForm = () => {
   const amount = watch("loanAmount");
   const term = watch("loanTerm");
 
-  const onSubmit = async (data: Step3Inputs) => {
+  const onSubmit = async (data: ILoanDetails) => {
     setIsSubmitting(true);
     try {
       await axios.post("https://dummyjson.com/products/add", {

@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import type { Step1Inputs } from "@/types/step1";
 import { useFormStore } from "@/store/useFormStore";
 import { Input } from "@/conponents/ui/input/input";
 import { Button } from "@/conponents/ui/button/button";
+import type { IPersonalDetails } from "@/types/steps/personalDetals";
 const PersonalInfoForm = () => {
   const navigate = useNavigate();
   const { formData, setField } = useFormStore();
@@ -12,7 +12,7 @@ const PersonalInfoForm = () => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Step1Inputs>({
+  } = useForm<IPersonalDetails>({
     defaultValues: {
       firstName: formData.firstName,
       lastName: formData.lastName,
@@ -21,7 +21,7 @@ const PersonalInfoForm = () => {
     },
   });
 
-  const onSubmit = (data: Step1Inputs) => {
+  const onSubmit = (data: IPersonalDetails) => {
     setField("firstName", data.firstName);
     setField("lastName", data.lastName);
     setField("phone", data.phone);

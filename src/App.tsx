@@ -4,10 +4,11 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import Step1 from "./conponents/pages/steps/step1";
-import Step2 from "./conponents/pages/steps/step2";
-import Step3 from "./conponents/pages/steps/step3";
+
 import "./App.css";
+import PersonalInfoForm from "./conponents/pages/steps/PersonalInfoForm";
+import LoanDetailsForm from "./conponents/pages/steps/LoanDetailsForm";
+import WorkAddressForm from "./conponents/pages/steps/WorkAddressForm";
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
       <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
         <div className="w-full max-w-lg">
           <Routes>
-            <Route path="/step1" element={<Step1 />} />
-            <Route path="/step2" element={<Step2 />} />
-            <Route path="/step3" element={<Step3 />} />
+            <Route path="/step1" element={<PersonalInfoForm />} />
+            <Route path="/step2" element={<WorkAddressForm />} />
+            <Route path="/step3" element={<LoanDetailsForm />} />
             <Route path="/" element={<Navigate to="/step1" replace />} />
             <Route path="*" element={<Navigate to="/step1" replace />} />
           </Routes>

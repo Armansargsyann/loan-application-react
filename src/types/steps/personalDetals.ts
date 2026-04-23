@@ -1,4 +1,4 @@
-export interface Step1Inputs {
+export interface IPersonalDetails {
   firstName: string;
   lastName: string;
   phone: string;

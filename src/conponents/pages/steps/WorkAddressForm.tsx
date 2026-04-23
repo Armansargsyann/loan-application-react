@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useFormStore } from "@/store/useFormStore";
-import type { Step2Inputs } from "@/types/step2";
 import { Input } from "@/conponents/ui/input/input";
 import { Button } from "@/conponents/ui/button/button";
+import type { IWorkAddressDetails } from "@/types/steps/workDetails";
 
 const WorkAddressForm = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const WorkAddressForm = () => {
     handleSubmit,
     formState: { errors },
     getValues,
-  } = useForm<Step2Inputs>({
+  } = useForm<IWorkAddressDetails>({
     defaultValues: {
       workplace: formData.workplace,
       address: formData.address,
@@ -28,7 +28,7 @@ const WorkAddressForm = () => {
     fetchCategories();
   }, [fetchCategories]);
 
-  const onSubmit = (data: Step2Inputs) => {
+  const onSubmit = (data: IWorkAddressDetails) => {
     setField("workplace", data.workplace);
     setField("address", data.address);
     navigate("/step3");

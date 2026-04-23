@@ -1,27 +1,8 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios"; 
-import type { ICategory } from "../types/step2";
+import type { FormState } from "@/types/store/FormStore";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  gender: string;
-  workplace: string;
-  address: string;
-  loanAmount: number;
-  loanTerm: number;
-}
-
-interface FormState {
-  formData: FormData;
-  categories: ICategory[];
-  isLoading: boolean; 
-  setField: (field: keyof FormData, value: string | number) => void;
-  fetchCategories: () => Promise<void>;
-  resetForm: () => void;
-}
 
 export const useFormStore = create<FormState>()(
   persist(

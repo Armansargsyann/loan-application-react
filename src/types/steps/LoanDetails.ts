@@ -1,4 +1,4 @@
-export interface Step3Inputs {
+export interface ILoanDetails {
   loanAmount: number;
   loanTerm: number;
 }
