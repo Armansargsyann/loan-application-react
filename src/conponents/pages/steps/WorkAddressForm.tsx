@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useFormStore } from "../../store/useFormStore";
-import type { Step2Inputs } from "../../types/step2";
+import { useFormStore } from "@/store/useFormStore";
+import type { Step2Inputs } from "@/types/step2";
+import { Input } from "@/conponents/ui/input/input";
+import { Button } from "@/conponents/ui/button/button";
 
-const Step2 = () => {
+const WorkAddressForm = () => {
   const navigate = useNavigate();
 
   const { formData, setField, categories, isLoading, fetchCategories } =
@@ -81,43 +83,33 @@ const Step2 = () => {
           )}
         </div>
 
-        <div>
-          <label className="block text-sm font-semibold text-gray-600 mb-1">
-            Адрес проживания
-          </label>
-          <input
-            type="text"
-            {...register("address", { required: "Адрес обязателен" })}
-            placeholder="Улица, дом, квартира"
-            className={`w-full p-3 border rounded-lg focus:ring-2 outline-none transition ${
-              errors.address ? "border-red-500" : "border-gray-200"
-            }`}
-          />
-          {errors.address && (
-            <p className="text-red-500 text-xs mt-1">
-              {errors.address.message}
-            </p>
-          )}
-        </div>
+        <Input
+          label="Адрес проживания"
+          type="text"
+          placeholder="Улица, дом, квартира"
+          {...register("address", { required: "Адрес обязателен" })}
+          error={errors.address?.message}
+        />
 
         <div className="flex gap-4 pt-4">
-          <button
+          <Button
             type="button"
+            variant="secondary"
             onClick={handleBack}
-            className="flex-1 bg-gray-100 text-gray-700 font-semibold py-3 rounded-lg hover:bg-gray-200 transition"
+            className="flex-1 py-3"
           >
             Назад
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
-            className="flex-2 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 shadow-lg transition transform active:scale-95"
+            className="flex-2 py-3 px-8 shadow-lg transform active:scale-95"
           >
             Далее
-          </button>
+          </Button>
         </div>
       </form>
     </div>
   );
 };
 
-export default Step2;
+export default WorkAddressForm;

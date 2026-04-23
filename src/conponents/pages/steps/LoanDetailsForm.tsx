@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useFormStore } from "../../store/useFormStore";
-import type { Step3Inputs } from "../../types/step3";
-import SuccessModal from "../SuccsesModal";
+import { useFormStore } from "@/store/useFormStore";
+import type { Step3Inputs } from "@/types/step3";
+import SuccessModal from "@/conponents/SuccsesModal";
+import { Button } from "@/conponents/ui/button/button";
 
-const Step3 = () => {
+const LoanDetailsForm = () => {
   const navigate = useNavigate();
   const { formData, setField, resetForm } = useFormStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -127,20 +128,21 @@ const Step3 = () => {
         </div>
 
         <div className="flex gap-4 pt-6">
-          <button
+          <Button
             type="button"
+            variant="secondary"
             onClick={handleBack}
-            className="flex-1 bg-gray-50 text-gray-500 font-bold py-4 rounded-xl hover:bg-gray-100 transition active:scale-95"
+            className="flex-1 py-4 rounded-xl active:scale-95"
           >
             Назад
-          </button>
-          <button
+          </Button>
+          <Button
             type="submit"
-            disabled={isSubmitting}
-            className="flex-2 bg-blue-600 text-white font-bold py-4 px-8 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-100 transition transform active:scale-95 disabled:opacity-50"
+            isLoading={isSubmitting}
+            className="flex-2 py-4 px-8 rounded-xl shadow-lg shadow-blue-100 transform active:scale-95"
           >
-            {isSubmitting ? "Отправка..." : "Подать заявку"}
-          </button>
+            Подать заявку
+          </Button>
         </div>
       </form>
 
@@ -156,4 +158,4 @@ const Step3 = () => {
   );
 };
 
-export default Step3;
+export default LoanDetailsForm;
