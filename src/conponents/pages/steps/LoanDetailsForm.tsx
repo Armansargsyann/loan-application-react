@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useFormStore } from "@/store/useFormStore";
 import SuccessModal from "@/conponents/SuccsesModal";
 import { Button } from "@/conponents/ui/button/button";
@@ -9,9 +8,9 @@ import type { ILoanDetails } from "@/types/steps/LoanDetails";
 
 const LoanDetailsForm = () => {
   const navigate = useNavigate();
-  const { formData, setField, resetForm } = useFormStore();
+  const { formData, setField, resetForm, submitForm, isSubmitting } =
+    useFormStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
     register,
@@ -30,20 +29,12 @@ const LoanDetailsForm = () => {
   const term = watch("loanTerm");
 
   const onSubmit = async (data: ILoanDetails) => {
-    setIsSubmitting(true);
-    try {
-      await axios.post("https://dummyjson.com/products/add", {
-        title: `${formData.firstName} ${formData.lastName}`,
-      });
+    setField("loanAmount", data.loanAmount);
+    setField("loanTerm", data.loanTerm);
 
-      setField("loanAmount", data.loanAmount);
-      setField("loanTerm", data.loanTerm);
-
+    const success = await submitForm();
+    if (success) {
       setIsModalOpen(true);
-    } catch (error) {
-      console.error("Ошибка:", error);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 

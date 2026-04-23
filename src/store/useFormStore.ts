@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import axios from "axios"; 
+import Axios from "@/api/axios.config";
 import type { FormState } from "@/types/store/FormStore";
-
 
 export const useFormStore = create<FormState>()(
   persist(
@@ -19,25 +18,39 @@ export const useFormStore = create<FormState>()(
       },
       categories: [],
       isLoading: false,
+      isSubmitting: false,
 
-    /**
- * Rationale for using an async action in Zustand:
- * We move the request logic into the store to ensure "result reuse" (caching).
- * If categories are already loaded, the request will not be executed again.
- */
+      /**
+       * Rationale for using an async action in Zustand:
+       * We move the request logic into the store to ensure "result reuse" (caching).
+       * If categories are already loaded, the request will not be executed again.
+       */
       fetchCategories: async () => {
-
         if (get().categories.length > 0) return;
 
         set({ isLoading: true });
         try {
-          const response = await axios.get(
-            "https://dummyjson.com/products/categories",
-          );
+          const response = await Axios.get("/products/categories");
           set({ categories: response.data, isLoading: false });
         } catch (error) {
           console.error("Ошибка при загрузке категорий:", error);
           set({ isLoading: false });
+        }
+      },
+
+      submitForm: async () => {
+        set({ isSubmitting: true });
+        try {
+          const state = get();
+          await Axios.post("/products/add", {
+            title: `${state.formData.firstName} ${state.formData.lastName}`,
+          });
+          set({ isSubmitting: false });
+          return true;
+        } catch (error) {
+          console.error("Ошибка при отправке заявки:", error);
+          set({ isSubmitting: false });
+          return false;
         }
       },
 

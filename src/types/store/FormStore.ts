@@ -7,7 +7,9 @@ export interface FormState {
   formData: FormData;
   categories: ICategory[];
   isLoading: boolean;
+  isSubmitting: boolean;
   setField: (field: keyof FormData, value: string | number) => void;
   fetchCategories: () => Promise<void>;
+  submitForm: () => Promise<boolean>;
   resetForm: () => void;
 }
